@@ -16,8 +16,6 @@ export function TaskCard({ task }) {
       if (optionsRef.current && !optionsRef.current.contains(e.target)) {
         setShowOptions(false);
       }
-
-      if (isDragging) console.log("dragging");
     }
     document.addEventListener("click", closeOptions);
 

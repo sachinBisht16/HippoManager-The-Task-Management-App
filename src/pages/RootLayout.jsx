@@ -1,9 +1,6 @@
-import { Outlet } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { Column } from "../components/Column";
 import { DndContext } from "@dnd-kit/core";
-import { arrayMove } from "@dnd-kit/sortable";
 
 import { taskActions } from "../store/index";
 
@@ -28,7 +25,6 @@ export default function RootLayout() {
     dispatch(taskActions.updateTask({ taskId, newStatus }));
   }
 
-  console.log(COLUMNS, tasks);
   return (
     <div className="h-full flex flex-col flex-1 min-h-screen">
       <Header />

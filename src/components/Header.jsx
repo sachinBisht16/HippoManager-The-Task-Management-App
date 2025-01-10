@@ -10,12 +10,11 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      // Sign out the user
       await signOut(auth);
       console.log("User successfully logged out");
-      // Clear Redux or local state
+
       dispatch(taskActions.reset());
-      // Redirect to login or home page
+
       navigate("/");
     } catch (error) {
       console.error("Error logging out:", error);

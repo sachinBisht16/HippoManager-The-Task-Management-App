@@ -43,8 +43,8 @@ export const taskSlice = createSlice({
     },
 
     retrieveData(state, action) {
-      const { tasks } = action.payload; // Destructure payload
-      tasks ? (state.tasks = tasks) : (state.tasks = []); // Replace the old tasks with the new ones
+      const { tasks } = action.payload;
+      tasks ? (state.tasks = tasks) : (state.tasks = []);
     },
 
     newTask(state, action) {

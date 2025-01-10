@@ -11,11 +11,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Login() {
   const navigate = useNavigate();
-  const tasksData = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
-  // const tasks = useSelector((state) => state.tasks);
 
-  // console.log(tasks);
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -26,32 +23,17 @@ export default function Login() {
       };
       dispatch(taskActions.updateUser(user));
 
-      const userRef = ref(database, `users/${user.id}`); // Path in the database
+      const userRef = ref(database, `users/${user.id}`);
 
-      // Check if user data already exists in the database
       const userSnapshot = await get(userRef);
 
       if (userSnapshot.exists()) {
-        // Data exists, retrieve and use it
         const userData = userSnapshot.val();
-        console.log("User data:", userData);
-
-        // You can dispatch an action to store this data in your Redux store if needed
         dispatch(taskActions.retrieveData(userData));
 
-        // Navigate to the dashboard or the appropriate route
         navigate("/dashboard/board");
       } else {
-        // No user data found, create a new user record
         await set(userRef, {
-          name: result.user.displayName,
-          email: result.user.email,
-          tasks: [], // Make sure to set your task data here
-        });
-
-        // dispatch(taskActions.retrieveData([]));
-
-        console.log("New user data created:", {
           name: result.user.displayName,
           email: result.user.email,
           tasks: [],
