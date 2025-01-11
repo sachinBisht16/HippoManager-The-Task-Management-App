@@ -2,6 +2,8 @@
 
 HippoManager is a task management application designed to help users efficiently track and manage both personal and work-related tasks. With an intuitive interface and powerful features, this app provides a seamless experience for organizing daily tasks and staying on top of deadlines.
 
+**Website URL** : * https://hippomanager-f13ac.firebaseapp.com/ *  OR * https://hippomanager-f13ac.web.app/ *
+
 ## Features
 
 - **Create Tasks:** Add new tasks with a title, due date, and category (Work/Personal).
