@@ -130,16 +130,16 @@ export default function Login() {
           </button>
         </div>
       </div>
-      <div className="parent w-1/2  relative">
+      <div className="parent w-1/2  relative overflow-hidden">
         <div>
-          <div className="border-2 h-full w-full border-pink-300 rounded-full absolute top-10 left-[40px] z-1"></div>
-          <div className="border-2 h-4/5 w-4/5 border-pink-300 rounded-full absolute top-[480px] left-[540px] transform -translate-x-1/2 -translate-y-1/2 z-2 "></div>
-          <div className="border-2 h-1/2 w-1/2 border-pink-300 rounded-full absolute top-[500px] left-[500px] transform -translate-x-1/2 -translate-y-1/2 z-4"></div>
+          <div className="border-2 md:h-4/5 md:top-[90px] 2xl:h-full 2xl:top-10  w-full border-pink-300 rounded-full absolute left-[40px] z-1"></div>
+          <div className="border-2 md:h-3/5 md:top-[430px] md:left-[420px]  2xl:h-4/5 w-4/5 border-pink-300 rounded-full absolute 2xl:top-[480px] 2xl:left-[540px] transform -translate-x-1/2 -translate-y-1/2 z-2 "></div>
+          <div className="border-2 md:h-2/5 md:top-[450px] md:right-[-80px] 2xl:h-1/2 w-1/2 border-pink-300 rounded-full absolute 2xl:top-[500px] 2xl:left-[500px] transform -translate-x-1/2 -translate-y-1/2 z-4"></div>
         </div>
         <img
           src="/assets/home.png"
           alt="image"
-          className="absolute top-28 right-[-330px] h-4/5 w-full rounded-xl"
+          className="absolute md:h-3/4 top-28 right-[-330px] 2xl:h-4/5 w-full rounded-xl"
         />
       </div>
     </div>
