@@ -1,13 +1,10 @@
-import { useNavigate } from "react-router-dom";
-
-import { auth, googleProvider } from "../firebase/firebase";
+import { auth, googleProvider, database } from "../firebase/firebase";
 import { signInWithPopup } from "firebase/auth";
+import { ref, set, get } from "firebase/database";
 
-import { database } from "../firebase/firebase";
-import { ref, set, push, get } from "firebase/database";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { taskActions } from "../store/index";
-import { useSelector, useDispatch } from "react-redux";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -47,11 +44,37 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen bg-pink-100 flex">
-      <div className="w-1/2 relative flex m-auto">
-        <div className="flex flex-col gap-2 p-20 mx-auto w-3/4">
-          <h1 className="text-5xl text-purple-900 w-full flex gap-5 font-semibold">
+    <>
+      <div className="absolute inset-0 bg-black opacity-20 z-10"></div>
+      <div className="h-screen bg-purple-300 flex justify-between xl:justify-around overflow-hidden relative">
+        <div className="absolute lg:hidden sm:w-64 sm:h-64 w-52 h-52 border-4 rounded-full border-purple-400 flex">
+          <div className="relative sm:w-40 sm:h-40 w-28 h-28 border-4 rounded-full m-auto border-purple-400"></div>
+        </div>
+
+        <div className="absolute lg:hidden sm:w-44 sm:h-44  w-32 h-32 border-4 rounded-full top-1/3 right-0 border-purple-400 flex z-0">
+          <div className="relative sm:w-24 sm:h-24 w-16 h-16 border-4 rounded-full m-auto border-purple-400"></div>
+        </div>
+
+        <div className="absolute lg:hidden sm:w-40 sm:h-40 w-32 h-32 border-4 rounded-full top-3/4 right-1/2 border-purple-400 flex z-0">
+          <div className="relative sm:w-24 sm:h-24 w-16 h-16 border-4 rounded-full m-auto border-purple-400"></div>
+        </div>
+
+        <div className="absolute xl:hidden lg:w-96 lg:h-96 border-4 rounded-full top-[-100px] right-[-150px] border-purple-400 flex z-0">
+          <div className="relative  lg:w-72 lg:h-72 border-4 rounded-full m-auto border-purple-400"></div>
+        </div>
+
+        <div className="absolute xl:hidden lg:w-72 lg:h-72 border-4 rounded-full top-1/4 left-10 border-purple-400 flex z-0">
+          <div className="relative  lg:w-52 lg:h-52 border-4 rounded-full m-auto border-purple-400"></div>
+        </div>
+
+        <div className="absolute xl:hidden lg:w-60 lg:h-60 border-4 rounded-full top-3/4 left-96 border-purple-400 flex z-0">
+          <div className="relative  lg:w-40 lg:h-40 border-4 rounded-full m-auto border-purple-400"></div>
+        </div>
+
+        <main className="m-auto xl:my-auto xl:mx-10 p-4 flex flex-col gap-4 relative">
+          <header className="flex gap-4">
             <svg
+              className="xl:w-12 xl:h-16 2xl:w-16"
               width="35"
               height="60"
               viewBox="0 0 23 28"
@@ -78,70 +101,73 @@ export default function Login() {
                 />
               </svg>
             </svg>
-            HippoManager
-          </h1>
-          <p className="text-lg">
-            Stremline your workflow and track progress effortlessly <br />
-            with our all-in-one task management app.
+            <h1 className="text-5xl xl:text-6xl font-semibold ">
+              HippoManager
+            </h1>
+          </header>
+          <p className="text-sm md:text-base">
+            Stremline your workflow and track progress effortlessly with our{" "}
+            <br />
+            all-in-one task management app.
           </p>
-
           <button
             onClick={signInWithGoogle}
-            className="bg-black gap-4 flex text-white rounded-lg w-full py-4 px-6 text-3xl mt-7 justify-center"
+            className="text-white xl:py-5 xl:text-2xl bg-black font-semibold w-full py-3 text-xl rounded-2xl flex justify-center relative z-20"
           >
-            <svg
-              className="my-auto"
-              width="30"
-              height="30"
-              viewBox="0 0 22 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g>
-                <path
-                  d="M21.2088 10.8997C21.2088 10.0457 21.1395 9.42259 20.9895 8.77637H11.2383V12.6306H16.962C16.8467 13.5885 16.2235 15.031 14.8387 16.0003L14.8193 16.1293L17.9024 18.5178L18.1161 18.5391C20.0778 16.7273 21.2088 14.0616 21.2088 10.8997Z"
-                  fill="#4285F4"
-                />
-                <path
-                  d="M11.2371 21.0554C14.0412 21.0554 16.3954 20.1322 18.1149 18.5397L14.8375 16.0009C13.9605 16.6125 12.7834 17.0395 11.2371 17.0395C8.49061 17.0395 6.15957 15.2278 5.32862 12.7236L5.20682 12.734L2.00091 15.2151L1.95898 15.3316C3.66687 18.7243 7.17501 21.0554 11.2371 21.0554Z"
-                  fill="#34A853"
-                />
-                <path
-                  d="M5.32704 12.7228C5.10779 12.0766 4.9809 11.3842 4.9809 10.6687C4.9809 9.95322 5.10779 9.26085 5.31551 8.61462L5.3097 8.47699L2.06362 5.95605L1.95741 6.00657C1.25351 7.41446 0.849609 8.99545 0.849609 10.6687C0.849609 12.342 1.25351 13.9229 1.95741 15.3308L5.32704 12.7228Z"
-                  fill="#FBBC05"
-                />
-                <path
-                  d="M11.2371 4.29906C13.1873 4.29906 14.5028 5.14147 15.2529 5.84545L18.1841 2.98354C16.3839 1.31026 14.0412 0.283203 11.2371 0.283203C7.17501 0.283203 3.66687 2.61424 1.95898 6.00695L5.31708 8.615C6.15957 6.11085 8.49061 4.29906 11.2371 4.29906Z"
-                  fill="#EB4335"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_68_3649">
-                  <rect
-                    width="20.3682"
-                    height="20.8434"
-                    fill="white"
-                    transform="translate(0.849609 0.283203)"
+            <div className="flex gap-2">
+              <svg
+                className="w-6 h-7 xl:w-7 xl:h-8"
+                viewBox="0 0 22 22"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <path
+                    d="M21.2088 10.8997C21.2088 10.0457 21.1395 9.42259 20.9895 8.77637H11.2383V12.6306H16.962C16.8467 13.5885 16.2235 15.031 14.8387 16.0003L14.8193 16.1293L17.9024 18.5178L18.1161 18.5391C20.0778 16.7273 21.2088 14.0616 21.2088 10.8997Z"
+                    fill="#4285F4"
                   />
-                </clipPath>
-              </defs>
-            </svg>
-            <h2 className="my-auto">Continue with Google</h2>
+                  <path
+                    d="M11.2371 21.0554C14.0412 21.0554 16.3954 20.1322 18.1149 18.5397L14.8375 16.0009C13.9605 16.6125 12.7834 17.0395 11.2371 17.0395C8.49061 17.0395 6.15957 15.2278 5.32862 12.7236L5.20682 12.734L2.00091 15.2151L1.95898 15.3316C3.66687 18.7243 7.17501 21.0554 11.2371 21.0554Z"
+                    fill="#34A853"
+                  />
+                  <path
+                    d="M5.32704 12.7228C5.10779 12.0766 4.9809 11.3842 4.9809 10.6687C4.9809 9.95322 5.10779 9.26085 5.31551 8.61462L5.3097 8.47699L2.06362 5.95605L1.95741 6.00657C1.25351 7.41446 0.849609 8.99545 0.849609 10.6687C0.849609 12.342 1.25351 13.9229 1.95741 15.3308L5.32704 12.7228Z"
+                    fill="#FBBC05"
+                  />
+                  <path
+                    d="M11.2371 4.29906C13.1873 4.29906 14.5028 5.14147 15.2529 5.84545L18.1841 2.98354C16.3839 1.31026 14.0412 0.283203 11.2371 0.283203C7.17501 0.283203 3.66687 2.61424 1.95898 6.00695L5.31708 8.615C6.15957 6.11085 8.49061 4.29906 11.2371 4.29906Z"
+                    fill="#EB4335"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_68_3649">
+                    <rect
+                      width="20.3682"
+                      height="20.8434"
+                      fill="white"
+                      transform="translate(0.849609 0.283203)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              <p className="">Continue with Goggle</p>
+            </div>
           </button>
+        </main>
+        <div className=" hidden xl:flex relative w-1/2">
+          <img
+            loading="lazy"
+            src="/assets/home.png"
+            alt="image"
+            className="absolute md:h-4/5 transform min-[1350px]:translate-x-[300px] min-[1400px]:translate-x-[300px] min-[1430px]:translate-x-[300px] min-[1536px]:translate-x-[320px] min-[1636px]:translate-x-[400px] min-[1721px]:translate-x-[470px] 2xl:translate-y-[10%] xl:translate-x-[250px] xl:translate-y-[10%] 2xl:h-4/5 w-full rounded-2xl z-10"
+          />
+          <div className="  xl:w-[850px] xl:h-[850px] 2xl:w-[950px] 2xl:h-[950px] border-4 rounded-full absolute top-10 right-[-150px] border-purple-400 xl:flex z-0">
+            <div className="relative xl:flex xl:w-3/4 xl:h-3/4 border-4 rounded-full m-auto border-purple-400">
+              <div className="relative  xl:w-2/3 xl:h-2/3 2xl:w-3/5 2xl:h-3/5 border-4 rounded-full m-auto border-purple-400"></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="parent w-1/2  relative overflow-hidden">
-        <div>
-          <div className="border-2 md:h-4/5 md:top-[90px] 2xl:h-full 2xl:top-10  w-full border-pink-300 rounded-full absolute left-[40px] z-1"></div>
-          <div className="border-2 md:h-3/5 md:top-[430px] md:left-[420px]  2xl:h-4/5 w-4/5 border-pink-300 rounded-full absolute 2xl:top-[480px] 2xl:left-[540px] transform -translate-x-1/2 -translate-y-1/2 z-2 "></div>
-          <div className="border-2 md:h-2/5 md:top-[450px] md:right-[-80px] 2xl:h-1/2 w-1/2 border-pink-300 rounded-full absolute 2xl:top-[500px] 2xl:left-[500px] transform -translate-x-1/2 -translate-y-1/2 z-4"></div>
-        </div>
-        <img
-          src="/assets/home.png"
-          alt="image"
-          className="absolute md:h-3/4 top-28 right-[-330px] 2xl:h-4/5 w-full rounded-xl"
-        />
-      </div>
-    </div>
+    </>
   );
 }
