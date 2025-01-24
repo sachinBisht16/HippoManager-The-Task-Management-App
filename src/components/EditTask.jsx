@@ -1,6 +1,6 @@
 import { forwardRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { taskActions } from "../store";
+import { projectActions } from "../store";
 import { formatMilliseconds } from "../../utilities";
 
 const EditTask = forwardRef(function EditTask({ task }, ref) {
@@ -21,7 +21,7 @@ const EditTask = forwardRef(function EditTask({ task }, ref) {
 
   const saveTaskHandler = (e) => {
     e.preventDefault();
-    dispatch(taskActions.editTask(updatedTask));
+    dispatch(projectActions.editTask(updatedTask));
     ref.current.close();
   };
 

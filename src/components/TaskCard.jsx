@@ -1,6 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import { useState, useEffect, useRef } from "react";
-import { taskActions } from "../store";
+import { projectActions } from "../store";
 import { useDispatch } from "react-redux";
 import EditTask from "./EditTask";
 import { formatDate } from "../../utilities";
@@ -34,11 +34,11 @@ export function TaskCard({ task }) {
   };
 
   const deleteHandler = () => {
-    dispatch(taskActions.deleteTask({ id: task.id }));
+    dispatch(projectActions.deleteTask({ id: task.id }));
   };
 
   const editHandler = () => {
-    dispatch(taskActions.editHandler({ id: task.id }));
+    dispatch(projectActions.editHandler({ id: task.id }));
   };
 
   const openEditModal = () => {

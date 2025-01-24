@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { taskSlice } from "./task-slice";
+import { projectSlice } from "./projectSlice";
+import { uiSlice } from "./ui-slice";
 import syncMiddleware from "./syncMiddleware";
 
 const store = configureStore({
-  reducer: taskSlice.reducer,
+  reducer: {
+    projects: projectSlice.reducer,
+    ui: uiSlice.reducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(syncMiddleware),
 });
 
-export const taskActions = taskSlice.actions;
+export const uiActions = uiSlice.actions;
+export const projectActions = projectSlice.actions;
 export default store;

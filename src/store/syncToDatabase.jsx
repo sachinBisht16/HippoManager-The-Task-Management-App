@@ -3,13 +3,13 @@ import { database } from "../firebase/firebase";
 
 const syncStateToFirebase = (store, prevState) => {
   const state = store.getState();
-  const currrentTasks = state.tasks;
-  const previousTasks = prevState.tasks;
+  const currrentProjects = state.projects.projects;
+  const previousProjects = prevState.projects.projects;
 
-  if (currrentTasks !== previousTasks) {
-    const dataRef = ref(database, `users/${state.user.id}/tasks`);
+  if (currrentProjects !== previousProjects) {
+    const dataRef = ref(database, `users/${state.projects.user.id}/projects`);
 
-    set(dataRef, currrentTasks).catch((error) => {
+    set(dataRef, currrentProjects).catch((error) => {
       console.log("Error updating the firebase", error);
     });
   }

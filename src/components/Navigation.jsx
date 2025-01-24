@@ -1,26 +1,26 @@
 import { useRef } from "react";
 import AddTaskModal from "./AddTaskModal";
-import { taskActions } from "../store";
+import { projectActions } from "../store";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Navigation() {
   const createModalRef = useRef();
   const dispatch = useDispatch();
-  const lastEntries = useSelector((state) => state.lastEntries);
-  const searchValue = useSelector((state) => state.search);
+  const lastEntries = useSelector((state) => state.projects.lastEntries);
+  const searchValue = useSelector((state) => state.projects.search);
 
   function openCreateModal() {
-    dispatch(taskActions.clearTask(lastEntries));
+    dispatch(projectActions.clearTask(lastEntries));
     createModalRef.current.showModal();
   }
 
   function filterHandler(e) {
     const { name, value } = e.target;
-    dispatch(taskActions.filterTask({ name, value }));
+    dispatch(projectActions.filterTask({ name, value }));
   }
 
   function searchHandler(e) {
-    dispatch(taskActions.searchFilter(e.target.value));
+    dispatch(projectActions.searchFilter(e.target.value));
   }
 
   return (

@@ -1,19 +1,20 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { taskActions } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { projectActions } from "../store";
 
 export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.projects.user);
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
       console.log("User successfully logged out");
 
-      dispatch(taskActions.reset());
+      dispatch(projectActions.reset());
 
       navigate("/");
     } catch (error) {
@@ -60,7 +61,7 @@ export default function Header() {
             alt="Profile"
             className="h-6 w-6 rounded-2xl"
           />
-          <h3 className="text-md">Sachin</h3>
+          <h3 className="text-md">{user.name}</h3>
         </button>
         <button
           onClick={() => handleLogout()}

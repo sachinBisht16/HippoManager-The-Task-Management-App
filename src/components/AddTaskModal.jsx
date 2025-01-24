@@ -1,28 +1,37 @@
 import { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { taskActions } from "../store";
+import { projectActions } from "../store";
 import { generateRandomId } from "../../utilities";
 
 const AddTaskModal = forwardRef(function AddTaskModal({}, ref) {
   const dispatch = useDispatch();
-  const latestEntries = useSelector((state) => state.latestEntries);
+  const latestEntries = useSelector((state) => state.projects.latestEntries);
+  const currentProjectId = useSelector(
+    (state) => state.projects.currentProject.id
+  );
 
   const addTaskHandler = (e) => {
     e.preventDefault();
 
     const id = generateRandomId();
-    dispatch(taskActions.newTask({ ...latestEntries, id }));
+    dispatch(
+      projectActions.newTask({
+        ...latestEntries,
+        id,
+        projectId: currentProjectId,
+      })
+    );
     ref.current.close();
   };
 
   function categoryHandler(e) {
     const category = e.target.innerHTML.toLowerCase().trim();
-    dispatch(taskActions.setEntries({ name: "category", value: category }));
+    dispatch(projectActions.setEntries({ name: "category", value: category }));
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch(taskActions.setEntries({ name, value }));
+    dispatch(projectActions.setEntries({ name, value }));
   };
 
   return (

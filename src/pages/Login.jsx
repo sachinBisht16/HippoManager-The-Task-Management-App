@@ -4,7 +4,7 @@ import { ref, set, get } from "firebase/database";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { taskActions } from "../store/index";
+import { projectActions } from "../store/index";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function Login() {
         id: result.user.uid,
         email: result.user.email,
       };
-      dispatch(taskActions.updateUser(user));
+      dispatch(projectActions.updateUser(user));
 
       const userRef = ref(database, `users/${user.id}`);
 
@@ -26,9 +26,9 @@ export default function Login() {
 
       if (userSnapshot.exists()) {
         const userData = userSnapshot.val();
-        dispatch(taskActions.retrieveData(userData));
+        dispatch(projectActions.retrieveData(userData));
 
-        navigate("/dashboard/board");
+        navigate("/home");
       } else {
         await set(userRef, {
           name: result.user.displayName,
@@ -36,7 +36,7 @@ export default function Login() {
           tasks: [],
         });
 
-        navigate("/dashboard/board");
+        navigate("/home");
       }
     } catch (err) {
       console.log(err.message);

@@ -1,7 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react";
 
 import Login from "./pages/Login";
-import RootLayout from "./pages/RootLayout";
+
+const LazyLayout = React.lazy(() => import("./pages/RootLayout"));
+import Home from "./pages/Home";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
@@ -9,7 +12,7 @@ import { getDatabase, ref, get } from "firebase/database";
 
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { taskActions } from "./store";
+import { projectActions } from "./store";
 
 const router = createBrowserRouter([
   {
@@ -17,8 +20,16 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/dashboard/board",
-    element: <RootLayout />,
+    path: "/home",
+    element: <Home />,
+  },
+  {
+    path: "/dashboard/board/:productName",
+    element: <LazyLayout />,
+    loader: async ({ params }) => {
+      const { productName } = params;
+      return productName;
+    },
   },
 ]);
 
@@ -34,7 +45,7 @@ export default function App() {
         if (snapshot.exists()) {
           const userData = snapshot.val();
 
-          dispatch(taskActions.retrieveData(userData));
+          dispatch(projectActions.retrieveData(userData));
         } else {
           console.log("No data found for this user.");
         }
@@ -51,11 +62,11 @@ export default function App() {
           email: user.email,
         };
 
-        dispatch(taskActions.updateUser(userDetails));
+        dispatch(projectActions.updateUser(userDetails));
 
         fetchUserData(userDetails.id);
       } else {
-        dispatch(taskActions.reset());
+        dispatch(projectActions.reset());
       }
     });
 
