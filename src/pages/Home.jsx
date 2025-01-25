@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+
 import { projectActions } from "../store";
 import { uiActions } from "../store";
-import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
@@ -14,9 +16,8 @@ const date = today.getDate();
 
 export default function Home() {
   const navigate = useNavigate();
+  const inputRef = useRef(null);
   const showCreateProject = useSelector((state) => state.ui.showCreateProject);
-  const projects = useSelector((state) => state.projects.projects);
-  const user = useSelector((state) => state.projects.user);
 
   const dispatch = useDispatch();
 
@@ -38,6 +39,10 @@ export default function Home() {
   const newProjectHandler = () => {
     dispatch(uiActions.newProject());
   };
+
+  useEffect(() => {
+    if (inputRef.current && showCreateProject) inputRef.current.focus();
+  }, [showCreateProject]);
 
   return (
     <div className="flex flex-col h-screen">
@@ -73,6 +78,7 @@ export default function Home() {
                   New Project
                 </label>
                 <input
+                  ref={inputRef}
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
                   type="text"
