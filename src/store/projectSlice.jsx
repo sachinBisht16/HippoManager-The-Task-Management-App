@@ -115,8 +115,6 @@ export const projectSlice = createSlice({
       state.latestEntries[action.payload.name] = action.payload.value;
     },
 
-    // verified
-
     updateTask(state, action) {
       const taskIndex = state.currentProject.tasks.findIndex(
         (task) => task.id === action.payload.taskId

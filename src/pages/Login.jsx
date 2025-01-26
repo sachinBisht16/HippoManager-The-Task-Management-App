@@ -24,11 +24,12 @@ export default function Login() {
 
       const userSnapshot = await get(userRef);
 
+      const userName = user.name.toLowerCase().split(" ").join("-");
       if (userSnapshot.exists()) {
         const userData = userSnapshot.val();
         dispatch(projectActions.retrieveData(userData));
 
-        navigate("/home");
+        navigate(`/${userName}/home`);
       } else {
         await set(userRef, {
           name: result.user.displayName,
@@ -36,7 +37,7 @@ export default function Login() {
           tasks: [],
         });
 
-        navigate("/home");
+        navigate(`/${userName}/home`);
       }
     } catch (err) {
       console.log(err.message);

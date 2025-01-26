@@ -1,19 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { projectActions } from "../store";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const projects = useSelector((state) => state.projects.projects);
+  const userName = useSelector((state) => state.projects.user.name);
 
   const openProjectHandler = (id, projectName) => {
     dispatch(projectActions.openProject({ id }));
-    navigate("/dashboard/board/" + `${projectName}`);
+    navigate("dashboard/board/" + `${projectName.toLowerCase()}`);
   };
 
   const navigateToHome = () => {
-    navigate("/home");
+    navigate(`/${userName.toLowerCase().split(" ").join("-")}/home`);
   };
 
   return (

@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { projectActions } from "../store";
 import { uiActions } from "../store";
 
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
-
 const today = new Date();
 const day = today.toLocaleDateString("en-US", { weekday: "long" });
 const month = today.toLocaleDateString("en-US", { month: "long" });
@@ -17,9 +14,10 @@ const date = today.getDate();
 export default function Home() {
   const navigate = useNavigate();
   const inputRef = useRef(null);
-  const showCreateProject = useSelector((state) => state.ui.showCreateProject);
-
   const dispatch = useDispatch();
+  const userName = useSelector((state) => state.projects.user.name);
+
+  const showCreateProject = useSelector((state) => state.ui.showCreateProject);
 
   const [projectName, setProjectName] = useState("");
 
@@ -30,7 +28,10 @@ export default function Home() {
       dispatch(projectActions.createProject({ projectName, projectId: id }));
       setProjectName(() => "");
       dispatch(uiActions.newProject());
-      navigate("/dashboard/board/" + `${projectName}`);
+      navigate(
+        `/${userName.toLowerCase().split(" ").join("-")}/dashboard/board/` +
+          `${projectName.toLowerCase()}`
+      );
     }
 
     dispatch(projectActions.openProject({ id }));
@@ -46,10 +47,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen">
-      <Topbar />
-
       <div className="flex bg-red-300 text-white h-full">
-        <Sidebar />
         <main className="w-full bg-white text-black flex flex-col ">
           <h1 className="text-3xl font-semibold">Home</h1>
           <div className="mx-auto mt-10  text-center">

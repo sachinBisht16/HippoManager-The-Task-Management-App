@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import React from "react";
 
 import Login from "./pages/Login";
@@ -13,23 +17,34 @@ import { getDatabase, ref, get } from "firebase/database";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { projectActions } from "./store";
+import Project from "./components/Project";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Navigate to="/login" replace />,
+  },
+  {
+    path: "/login",
     element: <Login />,
   },
   {
-    path: "/home",
-    element: <Home />,
-  },
-  {
-    path: "/dashboard/board/:productName",
+    path: "/:user",
     element: <LazyLayout />,
-    loader: async ({ params }) => {
-      const { productName } = params;
-      return productName;
-    },
+    children: [
+      {
+        path: "home",
+        element: <Home />,
+      },
+      {
+        path: "dashboard/board/:productName",
+        element: <Project />,
+        loader: async ({ params }) => {
+          const { productName } = params;
+          return productName;
+        },
+      },
+    ],
   },
 ]);
 
