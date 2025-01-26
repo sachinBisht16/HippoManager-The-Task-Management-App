@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
+import Navigation from "../components/Navigation";
 import Column from "./Column";
 import { projectActions } from "../store";
 
@@ -39,24 +40,27 @@ export default function Project() {
   }
 
   return (
-    <main className="p-4 flex h-full flex-1 bg-gray-50 border-2">
-      <div className="flex gap-8">
-        <DndContext onDragEnd={handleDragEnd}>
-          {COLUMNS.map((column) => (
-            <Column
-              key={column.id}
-              column={column}
-              filter={filter}
-              search={searchValue}
-              tasks={currentProject.tasks?.filter(
-                (task) =>
-                  task.status.toLowerCase().trim() ===
-                  column.id.toLowerCase().trim()
-              )}
-            />
-          ))}
-        </DndContext>
-      </div>
-    </main>
+    <>
+      <Navigation />
+      <main className="p-4 flex h-full flex-1 bg-gray-50 border-2">
+        <div className="flex gap-8">
+          <DndContext onDragEnd={handleDragEnd}>
+            {COLUMNS.map((column) => (
+              <Column
+                key={column.id}
+                column={column}
+                filter={filter}
+                search={searchValue}
+                tasks={currentProject.tasks?.filter(
+                  (task) =>
+                    task.status.toLowerCase().trim() ===
+                    column.id.toLowerCase().trim()
+                )}
+              />
+            ))}
+          </DndContext>
+        </div>
+      </main>
+    </>
   );
 }

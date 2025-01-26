@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 import { uiActions } from "../store/index";
 
 import Header from "../components/Header";
-import Navigation from "../components/Navigation";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
@@ -25,7 +24,6 @@ export default function RootLayout() {
         {showSidebar && <Sidebar />}
         <div className="flex flex-col flex-grow">
           <Header />
-          <Navigation />
           <hr />
           <Outlet />
         </div>
