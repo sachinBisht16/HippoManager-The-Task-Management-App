@@ -5,6 +5,7 @@ export const uiSlice = createSlice({
   initialState: {
     showCreateProject: false,
     showSidebar: true,
+    showProjects: true,
   },
   reducers: {
     newProject(state) {
@@ -13,6 +14,10 @@ export const uiSlice = createSlice({
 
     toggleSidebar(state) {
       state.showSidebar = !state.showSidebar;
+    },
+
+    toggleProjects(state) {
+      state.showProjects = !state.showProjects;
     },
   },
 });

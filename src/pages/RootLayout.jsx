@@ -10,8 +10,6 @@ import Topbar from "../components/Topbar";
 export default function RootLayout() {
   const dispatch = useDispatch();
 
-  const showSidebar = useSelector((state) => state.ui.showSidebar);
-
   const toggleSidebarHandler = () => {
     dispatch(uiActions.toggleSidebar());
   };
@@ -21,7 +19,7 @@ export default function RootLayout() {
       <Topbar toggleSidebar={toggleSidebarHandler} />
 
       <div className="flex flex-1 flex-grow">
-        {showSidebar && <Sidebar />}
+        <Sidebar />
         <div className="flex flex-col flex-grow">
           <Header />
           <hr />
