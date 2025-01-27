@@ -43,7 +43,7 @@ export default function Project() {
     <>
       <Navigation />
       <main className="p-4 flex h-full flex-1 bg-gray-50 border-2">
-        <div className="flex gap-8">
+        <div className="flex flex-col sm:flex-row gap-2">
           <DndContext onDragEnd={handleDragEnd}>
             {COLUMNS.map((column) => (
               <Column
