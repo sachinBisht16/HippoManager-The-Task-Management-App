@@ -10,7 +10,7 @@ export default function Column({ column, filter, search, tasks = [] }) {
   const filteredTasks = filterOnSearch(filterTask(tasks, filter), search);
 
   return (
-    <div className="flex w-96 flex-col rounded-xl p-4 hover:shadow-md hover:shadow-gray-300 hover:bg-opacity-70 hover:bg-white min-h-svh">
+    <div className="flex w-96 flex-col rounded-xl p-4 hover:shadow-md hover:shadow-gray-300 hover:bg-opacity-70 hover:bg-white min-h-screen sm:min-h-full mx-auto">
       <div className="">
         <h2 className="mb-4 font-semibold text-black shadow-lg p-2 inline-block rounded-lg bg-white">
           {column.title}
@@ -19,7 +19,7 @@ export default function Column({ column, filter, search, tasks = [] }) {
 
       <div
         ref={setNodeRef}
-        className="flex flex-1 flex-col gap-4 shadow-md shadow-gray-300 bg-gray-100 rounded-xl p-2"
+        className="flex flex-1 flex-col gap-4 shadow-md shadow-gray-300 bg-blue-200 bg-opacity-20 border-x-2 rounded-xl p-2"
       >
         {filteredTasks.map((task) => {
           return <TaskCard key={task.id} task={task} />;
