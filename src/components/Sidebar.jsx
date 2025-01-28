@@ -26,7 +26,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`w-1/6 min-w-[250px] md:relative absolute h-full md:h-auto bg-gray-800 flex-col space-y-2 opacity-90 md:opacity-100 
+      className={`z-10 w-1/6 min-w-[250px] md:relative fixed h-full md:h-auto bg-gray-800 flex-col space-y-2 opacity-90 md:opacity-100 
         ${showSidebar ? "hidden md:flex" : "flex md:hidden"}`}
     >
       <ul className="text-white mx-5 mt-2 space-y-1">
