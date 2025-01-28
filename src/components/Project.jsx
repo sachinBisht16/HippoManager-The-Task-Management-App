@@ -43,7 +43,7 @@ export default function Project() {
     <>
       <Navigation />
       <main className="p-4 flex bg-gray-50 border-2 flex-grow overflow-auto">
-        <div className="flex flex-col sm:flex-row gap-2 flex-grow mx-auto">
+        <div className="flex flex-col sm:flex-row gap-2 flex-grow items-center">
           <DndContext onDragEnd={handleDragEnd}>
             {COLUMNS.map((column) => (
               <Column
