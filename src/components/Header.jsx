@@ -1,27 +1,4 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebase";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { projectActions } from "../store";
-
 export default function Header() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.projects.user);
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      console.log("User successfully logged out");
-
-      dispatch(projectActions.reset());
-
-      navigate("/");
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
-  };
-
   return (
     <header className="flex justify-between items-center pt-2 px-4 bg-white">
       <div className="flex items-center gap-2">
@@ -54,7 +31,7 @@ export default function Header() {
 
         <h2 className="text-lg font-semibold">HippoManager</h2>
       </div>
-      <div className="flex items-center gap-4">
+      {/* <div className="flex items-center gap-4">
         <button className="flex items-center gap-2 p-2 text-black font-medium rounded hover:text-blue-600 ">
           <img
             src="/assets/profile-img.png"
@@ -86,7 +63,7 @@ export default function Header() {
 
           <h2 className="text-md">Logout</h2>
         </button>
-      </div>
+      </div> */}
     </header>
   );
 }
