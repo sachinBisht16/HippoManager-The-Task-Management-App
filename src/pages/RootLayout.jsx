@@ -15,12 +15,12 @@ export default function RootLayout() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col h-screen">
       <Topbar toggleSidebar={toggleSidebarHandler} />
 
-      <div className="flex flex-grow">
+      <div className="flex flex-grow h-full overflow-auto">
         <Sidebar />
-        <div className="flex flex-col flex-grow overflow-auto">
+        <div className="flex flex-col flex-grow">
           <Header />
           <hr />
           <Outlet />

@@ -40,27 +40,25 @@ export default function Project() {
   }
 
   return (
-    <>
+    <div className="relative flex-grow flex flex-col overflow-auto">
       <Navigation />
-      <main className="p-4 flex bg-gray-50 border-2 flex-grow overflow-auto">
-        <div className="flex flex-col sm:flex-row gap-2 flex-grow items-center">
-          <DndContext onDragEnd={handleDragEnd}>
-            {COLUMNS.map((column) => (
-              <Column
-                key={column.id}
-                column={column}
-                filter={filter}
-                search={searchValue}
-                tasks={currentProject.tasks?.filter(
-                  (task) =>
-                    task.status.toLowerCase().trim() ===
-                    column.id.toLowerCase().trim()
-                )}
-              />
-            ))}
-          </DndContext>
-        </div>
+      <main className="flex flex-col flex-grow p-4 sm:flex-row gap-4 border-2 overflow-y-auto bg-gray-50">
+        <DndContext onDragEnd={handleDragEnd}>
+          {COLUMNS.map((column) => (
+            <Column
+              key={column.id}
+              column={column}
+              filter={filter}
+              search={searchValue}
+              tasks={currentProject.tasks?.filter(
+                (task) =>
+                  task.status.toLowerCase().trim() ===
+                  column.id.toLowerCase().trim()
+              )}
+            />
+          ))}
+        </DndContext>
       </main>
-    </>
+    </div>
   );
 }

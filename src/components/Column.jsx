@@ -10,7 +10,7 @@ export default function Column({ column, filter, search, tasks = [] }) {
   const filteredTasks = filterOnSearch(filterTask(tasks, filter), search);
 
   return (
-    <div className="flex w-96 flex-col rounded-xl p-4 hover:shadow-md hover:shadow-gray-300 hover:bg-opacity-70 hover:bg-white min-h-screen sm:min-h-full">
+    <div className="flex w-96 flex-col rounded-xl p-4 hover:shadow-md hover:shadow-gray-300 hover:bg-opacity-70 hover:bg-white min-h-screen sm:min-h-full overflow-y-auto mx-auto sm:mx-0">
       <div className="">
         <h2 className="mb-4 font-semibold text-black shadow-lg p-2 inline-block rounded-lg bg-white">
           {column.title}
