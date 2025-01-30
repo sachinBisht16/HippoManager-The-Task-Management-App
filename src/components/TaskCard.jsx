@@ -56,7 +56,7 @@ export function TaskCard({ task }) {
   return (
     <>
       <EditTask ref={editModalRef} task={task} />
-      <div className="relative">
+      <div className="relative flex w-full h-28 mx-auto">
         {!isDragging && (
           <div
             ref={optionsRef}
@@ -95,7 +95,9 @@ export function TaskCard({ task }) {
           ref={setNodeRef}
           {...listeners}
           {...attributes}
-          className="cursor-grab rounded-lg bg-white p-3 shadow-sm hover:shadow-md min-h-32 flex flex-col justify-between"
+          className={`cursor-grab rounded-lg box-border w-full h-28 bg-white p-3 shadow-sm hover:shadow-md flex flex-col justify-between outline-none ${
+            isDragging && "fixed w-72 h-28"
+          }`}
           style={style}
         >
           <div className="flex justify-between">
