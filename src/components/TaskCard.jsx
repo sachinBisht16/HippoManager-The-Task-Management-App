@@ -95,8 +95,8 @@ export function TaskCard({ task }) {
           ref={setNodeRef}
           {...listeners}
           {...attributes}
-          className={`cursor-grab rounded-lg box-border w-full h-28 bg-white p-3 shadow-sm hover:shadow-md flex flex-col justify-between outline-none ${
-            isDragging && "fixed w-72 h-28"
+          className={`cursor-grab rounded-lg box-border w-72 h-28 bg-white p-3 shadow-sm hover:shadow-md flex flex-col justify-between outline-none ${
+            isDragging && "fixed"
           }`}
           style={style}
         >
