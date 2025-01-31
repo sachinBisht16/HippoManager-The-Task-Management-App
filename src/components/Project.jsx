@@ -20,7 +20,10 @@ export default function Project() {
 
   if (Object.keys(currentProject).length === 0) {
     currentProject =
-      projects.find((project) => project.name === currentProjectName) || {};
+      projects.find(
+        (project) =>
+          project.name.toLowerCase() === currentProjectName.toLowerCase()
+      ) || {};
   }
 
   useEffect(() => {
