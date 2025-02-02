@@ -1,13 +1,22 @@
 import { useRef } from "react";
 import AddTaskModal from "./AddTaskModal";
-import { projectActions } from "../store";
+import { projectActions, uiActions } from "../store";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Navigation() {
+  const navigate = useNavigate();
   const createModalRef = useRef();
   const dispatch = useDispatch();
   const lastEntries = useSelector((state) => state.projects.lastEntries);
   const searchValue = useSelector((state) => state.projects.search);
+  const currentProject = useSelector((state) => state.projects.currentProject);
+
+  function viewModeHandler(mode) {
+    dispatch(uiActions.updateView({ view: mode }));
+
+    navigate(`../dashboard/${mode}/${currentProject.name.toLowerCase()}`);
+  }
 
   function openCreateModal() {
     dispatch(projectActions.clearTask(lastEntries));
@@ -28,12 +37,8 @@ export default function Navigation() {
       <AddTaskModal ref={createModalRef} />
 
       <nav className="flex flex-row gap-2 p-4">
-        <div>
-          <a
-            href="#"
-            className="flex items-center justify-center rounded-md  text-gray-600 font-medium hover:text-black m-auto"
-            aria-label="Navigate to List section"
-          >
+        <div onClick={() => viewModeHandler("list")} className="cursor-pointer">
+          <span className="flex items-center justify-center rounded-md  text-gray-600 font-medium hover:text-black m-auto">
             <svg
               width="16"
               height="16"
@@ -49,14 +54,14 @@ export default function Navigation() {
               />
             </svg>
             <span>List</span>
-          </a>
+          </span>
         </div>
 
-        <div>
-          <a
-            href=""
-            className="flex items-center justify-center rounded-md  text-gray-600 font-medium hover:text-black m-auto"
-          >
+        <div
+          onClick={() => viewModeHandler("board")}
+          className="cursor-pointer"
+        >
+          <span className="flex items-center justify-center rounded-md  text-gray-600 font-medium hover:text-black m-auto">
             <svg
               width="16"
               height="16"
@@ -74,7 +79,7 @@ export default function Navigation() {
             </svg>
 
             <span>Board</span>
-          </a>
+          </span>
         </div>
       </nav>
 

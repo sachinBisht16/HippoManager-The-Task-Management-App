@@ -37,11 +37,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "dashboard/board/:productName",
+        path: "dashboard/:view/:productName",
         element: <Project />,
         loader: async ({ params }) => {
-          const { productName } = params;
-          return productName;
+          const { productName, view } = params;
+          return { productName, view };
         },
       },
     ],

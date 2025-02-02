@@ -18,6 +18,7 @@ export default function Home() {
   const userName = useSelector((state) => state.projects.user.name);
 
   const showCreateProject = useSelector((state) => state.ui.showCreateProject);
+  const view = useSelector((state) => state.ui.viewMode);
 
   const [projectName, setProjectName] = useState("");
 
@@ -29,7 +30,7 @@ export default function Home() {
       setProjectName(() => "");
       dispatch(uiActions.newProject());
       navigate(
-        `/${userName.toLowerCase().split(" ").join("-")}/dashboard/board/` +
+        `/${userName.toLowerCase().split(" ").join("-")}/dashboard/${view}/` +
           `${projectName.toLowerCase()}`
       );
     }

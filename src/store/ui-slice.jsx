@@ -6,8 +6,13 @@ export const uiSlice = createSlice({
     showCreateProject: false,
     showSidebar: true,
     showProjects: true,
+    viewMode: "board",
   },
   reducers: {
+    updateView(state, actions) {
+      state.viewMode = actions.payload.view;
+    },
+
     newProject(state) {
       state.showCreateProject = !state.showCreateProject;
     },

@@ -3,7 +3,6 @@ import { signOut } from "firebase/auth";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { projectActions } from "../store";
 import { uiActions } from "../store";
 
@@ -13,12 +12,12 @@ export default function Sidebar() {
   const projects = useSelector((state) => state.projects.projects);
   const userName = useSelector((state) => state.projects.user.name);
   const showSidebar = useSelector((state) => state.ui.showSidebar);
+  const viewMode = useSelector((state) => state.ui.viewMode);
   const showProjects = useSelector((state) => state.ui.showProjects);
-  const user = useSelector((state) => state.projects.user);
 
   const openProjectHandler = (id, projectName) => {
     dispatch(projectActions.openProject({ id }));
-    navigate("dashboard/board/" + `${projectName.toLowerCase()}`);
+    navigate(`dashboard/${viewMode}/${projectName.toLowerCase()}`);
   };
 
   const toggleProjects = () => {
@@ -28,7 +27,6 @@ export default function Sidebar() {
   const navigateToHome = () => {
     navigate(`/${userName.toLowerCase().split(" ").join("-")}/home`);
   };
-
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -137,20 +135,20 @@ export default function Sidebar() {
       </ul>
 
       <footer className="absolute bottom-0 flex flex-col gap-2 w-full">
-        <hr className="mx-4" />
-        <ul className="text-white mx-5 mt-1 space-y-1">
-          <li className="flex items-center gap-2 p-2 text- font-medium rounded cursor-pointer">
+        <hr className="mx-4 mb-0" />
+        <ul className="text-white mx-5 mt-2 space-y-1">
+          <li className="flex items-center gap-2 p-2 text- font-medium rounded ">
             <img
               src="/assets/profile-img.png"
               alt="Profile"
               className="h-7 w-7 rounded-2xl"
             />
             {/* <h3 className="text-md">{user.name}</h3> */}
-            <h3 className="hover:text-gray-300 text-white">Sachin bisht</h3>
+            <h3 className="hover:text-gray-50 text-white">Sachin bisht</h3>
           </li>
           <li
             onClick={() => handleLogout()}
-            className="flex justify-center items-center mx-auto text-black gap-2 py-2 bg-stone-400 text-sm font-semibold rounded-sm hover:opacity-80 cursor-pointer"
+            className="flex justify-center items-center mx-auto text-black gap-2 py-2 bg-stone-400 text-sm font-semibold rounded-sm hover:opacity-80"
           >
             <svg
               viewBox="0 0 15 15"
