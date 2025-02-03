@@ -7,6 +7,7 @@ export const uiSlice = createSlice({
     showSidebar: true,
     showProjects: true,
     viewMode: "board",
+    deleteProjectButtonIndex: null,
   },
   reducers: {
     updateView(state, actions) {
@@ -23,6 +24,10 @@ export const uiSlice = createSlice({
 
     toggleProjects(state) {
       state.showProjects = !state.showProjects;
+    },
+
+    toggleDeleteProjectButton(state, actions) {
+      state.deleteProjectButtonIndex = actions.payload.index;
     },
   },
 });

@@ -17,11 +17,11 @@ export default function Project() {
   const filter = useSelector((state) => state.projects.filterBy);
   const searchValue = useSelector((state) => state.projects.search);
   const projects = useSelector((state) => state.projects.projects);
-
-  const view = useSelector((state) => state.ui.viewMode);
   let currentProject = useSelector((state) => state.projects.currentProject);
 
-  if (Object.keys(currentProject).length === 0) {
+  const view = useSelector((state) => state.ui.viewMode);
+
+  if (currentProject && Object.keys(currentProject).length === 0) {
     currentProject =
       projects.find(
         (project) =>
@@ -53,6 +53,11 @@ export default function Project() {
     view === "list"
       ? "flex flex-col h-full border-2 p-4 overflow-auto min-w-[1500px]  bg-gray-50"
       : "flex flex-col flex-grow p-4 sm:flex-row gap-4 border-2 overflow-y-auto bg-gray-50";
+
+  // checking if project exist
+  if (!currentProject) {
+    return null;
+  }
 
   return (
     <div className="relative flex-grow flex flex-col overflow-auto">

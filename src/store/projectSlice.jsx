@@ -35,8 +35,14 @@ export const projectSlice = createSlice({
     },
 
     openProject(state, actions) {
-      state.currentProject = state.projects.find(
-        (project) => project.id === actions.payload.id
+      state.currentProject =
+        state.projects.find((project) => project.id === actions.payload?.id) ||
+        {};
+    },
+
+    deleteProject(state, actions) {
+      state.projects = state.projects.filter(
+        (project) => project.id !== actions.payload.id
       );
     },
 

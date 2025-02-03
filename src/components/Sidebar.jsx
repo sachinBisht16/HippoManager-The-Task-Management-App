@@ -14,6 +14,23 @@ export default function Sidebar() {
   const showSidebar = useSelector((state) => state.ui.showSidebar);
   const viewMode = useSelector((state) => state.ui.viewMode);
   const showProjects = useSelector((state) => state.ui.showProjects);
+  const showDeleteButtonIndex = useSelector(
+    (state) => state.ui.deleteProjectButtonIndex
+  );
+
+  const currentProjectId = useSelector(
+    (state) => state.projects.currentProject?.id
+  );
+
+  const deleteProjectHandler = (e, id) => {
+    e.stopPropagation();
+
+    if (currentProjectId && currentProjectId === id) {
+      navigateToHome();
+    }
+    dispatch(projectActions.openProject());
+    dispatch(projectActions.deleteProject({ id }));
+  };
 
   const openProjectHandler = (id, projectName) => {
     dispatch(projectActions.openProject({ id }));
@@ -27,6 +44,7 @@ export default function Sidebar() {
   const navigateToHome = () => {
     navigate(`/${userName.toLowerCase().split(" ").join("-")}/home`);
   };
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -38,6 +56,10 @@ export default function Sidebar() {
     } catch (error) {
       console.error("Error logging out:", error);
     }
+  };
+
+  const toggleDeleteProject = (index) => {
+    dispatch(uiActions.toggleDeleteProjectButton({ index }));
   };
 
   return (
@@ -109,8 +131,10 @@ export default function Sidebar() {
             {projects.map((project) => (
               <li
                 key={project.id}
-                className="cursor-pointer font-semibold text-sm px-2 py-1 hover:bg-gray-50 hover:bg-opacity-10  hover:rounded-lg w-full text-left flex gap-2"
+                className="cursor-pointer font-semibold text-sm px-2 py-1 hover:bg-gray-50 hover:bg-opacity-10  hover:rounded-lg w-full text-left flex gap-2 relative"
                 onClick={() => openProjectHandler(project.id, project.name)}
+                onMouseEnter={() => toggleDeleteProject(project.id)}
+                onMouseLeave={() => toggleDeleteProject(null)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -128,6 +152,14 @@ export default function Sidebar() {
                 </svg>
 
                 <p>{project.name}</p>
+                {project.id === showDeleteButtonIndex && (
+                  <img
+                    src="/assets/delete-project.png"
+                    alt="Delete-Project"
+                    className="size-5 p-[2px] absolute rounded-full right-2 bg-gray-600"
+                    onClick={(e) => deleteProjectHandler(e, project.id)}
+                  />
+                )}
               </li>
             ))}
           </ul>
