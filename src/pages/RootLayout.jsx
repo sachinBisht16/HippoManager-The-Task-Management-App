@@ -18,7 +18,7 @@ export default function RootLayout() {
     <div className="flex flex-col h-screen">
       <Topbar toggleSidebar={toggleSidebarHandler} />
 
-      <div className="flex flex-grow h-full overflow-auto">
+      <div className="flex flex-grow h-full overflow-auto relative">
         <Sidebar />
         <div className="flex flex-col flex-grow">
           <Header />
