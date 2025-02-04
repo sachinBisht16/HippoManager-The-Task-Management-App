@@ -175,8 +175,12 @@ export default function Sidebar() {
               alt="Profile"
               className="h-7 w-7 rounded-2xl"
             />
-            {/* <h3 className="text-md">{user.name}</h3> */}
-            <h3 className="hover:text-gray-50 text-white">Sachin bisht</h3>
+            <h3 className="hover:text-gray-50 text-white">
+              {userName
+                .split(" ")
+                .map((word) => word[0].toUpperCase() + word.slice(1))
+                .join(" ")}
+            </h3>
           </li>
           <li
             onClick={() => handleLogout()}
@@ -185,7 +189,6 @@ export default function Sidebar() {
             <svg
               viewBox="0 0 15 15"
               fill="none"
-              // stroke="white"
               className="size-4"
               xmlns="http://www.w3.org/2000/svg"
             >

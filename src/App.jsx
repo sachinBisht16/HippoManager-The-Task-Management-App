@@ -3,13 +3,14 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import { getDatabase, ref, get } from "firebase/database";
 
 import Login from "./pages/Login";
+import Loader from "./components/Loader";
 const Root = React.lazy(() => import("./layout/Main"));
 const Home = React.lazy(() => import("./pages/Home"));
 const Project = React.lazy(() => import("./pages/Project"));
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -77,6 +79,8 @@ export default function App() {
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -93,11 +97,14 @@ export default function App() {
         fetchUserData(userDetails.id);
       } else {
         dispatch(projectActions.reset());
+        setLoading(false);
       }
     });
 
     return () => unsubscribe();
   }, [dispatch]);
+
+  if (loading) return <Loader />;
 
   return <RouterProvider router={router}></RouterProvider>;
 }

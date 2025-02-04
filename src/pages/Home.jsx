@@ -55,8 +55,9 @@ export default function Home() {
               {day}, {month} {date}
             </h3>
             <h1 className="text-5xl font-semibold">
-              {/* Good Morning, {user.name.split(" ")[0]} */}
-              {greeting}, Sachin
+              {greeting},{" "}
+              {userName.split(" ")[0][0].toUpperCase() +
+                userName.split(" ")[0].slice(1)}
             </h1>
           </div>
 
