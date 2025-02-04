@@ -158,7 +158,7 @@ export default function Login() {
         <div className=" hidden xl:flex relative w-1/2">
           <img
             loading="lazy"
-            src="/assets/home.png"
+            src="/assets/home.webp"
             alt="image"
             className="absolute md:h-4/5 transform min-[1350px]:translate-x-[300px] min-[1400px]:translate-x-[300px] min-[1430px]:translate-x-[300px] min-[1536px]:translate-x-[320px] min-[1636px]:translate-x-[400px] min-[1721px]:translate-x-[470px] 2xl:translate-y-[10%] xl:translate-x-[250px] xl:translate-y-[10%] 2xl:h-4/5 w-full rounded-2xl z-10"
           />

@@ -6,10 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { projectActions } from "../store";
 import { uiActions } from "../store";
 
-const today = new Date();
-const day = today.toLocaleDateString("en-US", { weekday: "long" });
-const month = today.toLocaleDateString("en-US", { month: "long" });
-const date = today.getDate();
+import { getTimeDetails } from "../../utilities";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -21,6 +18,8 @@ export default function Home() {
   const view = useSelector((state) => state.ui.viewMode);
 
   const [projectName, setProjectName] = useState("");
+
+  const { day, month, date, greeting } = getTimeDetails();
 
   const createHandler = async () => {
     const id = Date.now();
@@ -57,12 +56,16 @@ export default function Home() {
             </h3>
             <h1 className="text-5xl font-semibold">
               {/* Good Morning, {user.name.split(" ")[0]} */}
-              Good Morning, Sachin
+              {greeting}, Sachin
             </h1>
           </div>
 
           <div className="mx-auto bg-gray-200 rounded-full opacity-30 overflow-hidden mt-8">
-            <img className="w-80 h-72" src="/assets/get-started.png" alt="" />
+            <img
+              className="w-80 h-72"
+              src="/assets/get-started.webp"
+              alt="Get Started"
+            />
           </div>
           <div className="mx-auto flex flex-col space-y-2 w-1/6 mt-10 ">
             <button

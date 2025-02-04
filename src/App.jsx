@@ -3,21 +3,20 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import React from "react";
-
-import Login from "./pages/Login";
-
-const LazyLayout = React.lazy(() => import("./pages/RootLayout"));
-import Home from "./pages/Home";
+import React, { Suspense } from "react";
 
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebase";
 import { getDatabase, ref, get } from "firebase/database";
 
+import Login from "./pages/Login";
+const Root = React.lazy(() => import("./layout/Main"));
+const Home = React.lazy(() => import("./pages/Home"));
+const Project = React.lazy(() => import("./pages/Project"));
+
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { projectActions } from "./store";
-import Project from "./components/Project";
 
 const router = createBrowserRouter([
   {
@@ -30,15 +29,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/:user",
-    element: <LazyLayout />,
+    element: (
+      <Suspense>
+        <Root />
+      </Suspense>
+    ),
     children: [
       {
         path: "home",
-        element: <Home />,
+        element: (
+          <Suspense>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "dashboard/:view/:productName",
-        element: <Project />,
+        element: (
+          <Suspense>
+            <Project />
+          </Suspense>
+        ),
         loader: async ({ params }) => {
           const { productName, view } = params;
           return { productName, view };

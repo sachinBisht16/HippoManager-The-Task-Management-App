@@ -5,8 +5,8 @@ import { useLoaderData } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import Navigation from "../components/Navigation";
-import Column from "./Column";
-import Row from "./Row";
+import Column from "../components/Column";
+import Row from "../components/Row";
 import { projectActions, uiActions } from "../store";
 
 export default function Project() {

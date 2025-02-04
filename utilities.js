@@ -4,12 +4,10 @@ export function generateRandomId() {
 
   let randomId = "";
 
-  // Add 3 random digits
   for (let i = 0; i < 3; i++) {
     randomId += digits.charAt(Math.floor(Math.random() * digits.length));
   }
 
-  // Add 2 random letters (both lowercase and uppercase)
   for (let i = 0; i < 2; i++) {
     randomId += letters.charAt(Math.floor(Math.random() * letters.length));
   }
@@ -38,7 +36,7 @@ export function formatDate(date) {
 }
 
 export function filterTask(tasksArray, filterBy) {
-  let newTasks = structuredClone(tasksArray); // Deep clone to avoid modifying original array
+  let newTasks = structuredClone(tasksArray);
   for (let key in filterBy) {
     newTasks = newTasks.filter((task) => {
       if (key === "dueDate") {
@@ -46,22 +44,18 @@ export function filterTask(tasksArray, filterBy) {
         const targetDate = new Date(task[key]);
 
         if (filterBy[key] === "today") {
-          // Check if due date is today
           return targetDate.toDateString() === currentDate.toDateString();
         } else if (filterBy[key] === "tomorrow") {
-          // Check if due date is tomorrow
           const tomorrow = new Date(currentDate);
           tomorrow.setDate(currentDate.getDate() + 1);
           return targetDate.toDateString() === tomorrow.toDateString();
         } else if (filterBy[key] === "week") {
-          // Check if due date is within this week
           const startOfWeek = new Date(currentDate);
-          startOfWeek.setDate(currentDate.getDate() - currentDate.getDay()); // Start of the week (Sunday)
+          startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
           const endOfWeek = new Date(startOfWeek);
-          endOfWeek.setDate(startOfWeek.getDate() + 6); // End of the week (Saturday)
+          endOfWeek.setDate(startOfWeek.getDate() + 6);
           return targetDate >= startOfWeek && targetDate <= endOfWeek;
         } else if (filterBy[key] === "month") {
-          // Check if due date is within this month
           const startOfMonth = new Date(
             currentDate.getFullYear(),
             currentDate.getMonth(),
@@ -71,12 +65,11 @@ export function filterTask(tasksArray, filterBy) {
             currentDate.getFullYear(),
             currentDate.getMonth() + 1,
             0
-          ); // Last day of the month
+          );
           return targetDate >= startOfMonth && targetDate <= endOfMonth;
         }
       }
 
-      // For other keys, match the value or allow null as a wildcard
       return task[key] === filterBy[key] || filterBy[key] === null;
     });
   }
@@ -99,4 +92,25 @@ export function formatMilliseconds(ms) {
     hour12: true,
   };
   return date.toLocaleString("en-US", options).replace(",", " at");
+}
+
+export function getTimeDetails() {
+  const now = new Date();
+
+  const date = now.getDate();
+  const month = now.toLocaleString("default", { month: "long" });
+  const day = now.toLocaleString("default", { weekday: "long" });
+
+  const hours = now.getHours();
+  let greeting;
+
+  if (hours < 12) {
+    greeting = "Good Morning";
+  } else if (hours < 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
+
+  return { date, month, day, greeting };
 }

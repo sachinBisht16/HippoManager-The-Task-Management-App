@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Outlet } from "react-router-dom";
 import { uiActions } from "../store/index";
@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
-export default function RootLayout() {
+export default function Main() {
   const dispatch = useDispatch();
 
   const toggleSidebarHandler = () => {

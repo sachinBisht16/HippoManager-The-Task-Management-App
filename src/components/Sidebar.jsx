@@ -154,7 +154,7 @@ export default function Sidebar() {
                 <p>{project.name}</p>
                 {project.id === showDeleteButtonIndex && (
                   <img
-                    src="/assets/delete-project.png"
+                    src="/assets/delete-project.webp"
                     alt="Delete-Project"
                     className="size-5 p-[2px] absolute rounded-full right-2 bg-gray-600"
                     onClick={(e) => deleteProjectHandler(e, project.id)}
@@ -171,7 +171,7 @@ export default function Sidebar() {
         <ul className="text-white mx-5 mt-2 space-y-1">
           <li className="flex items-center gap-2 p-2 text- font-medium rounded ">
             <img
-              src="/assets/profile-img.png"
+              src="/assets/profile-img.webp"
               alt="Profile"
               className="h-7 w-7 rounded-2xl"
             />
